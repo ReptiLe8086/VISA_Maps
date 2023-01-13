@@ -4,22 +4,9 @@ import {MapContainer, TileLayer, Marker, Popup, LayerGroup, Polygon, Pane, useMa
 import './App.css';
 import {geoJSONParser} from './geoJSONParser/geoJSONParser';
 import { Geometry } from './types/Geometry';
+import getCoordinates from './utils/get-coordinates';
 
 const blueOptions = {color: 'blue'};
-
-
-
-
-function getCoordinates(countryName: string) {
-
-    const targetGeometry = geoJSONParser(countryName);
-    const coordinates = targetGeometry.coordinates;
-    return coordinates?.map((coord1) =>
-            coord1?.map((coord2) => coord2?.map((coord3) => coord3?.reverse()))
-            ) as LatLngExpression[][][];
-
-}
-
 
 function CustomMap() {
 
@@ -28,9 +15,9 @@ function CustomMap() {
     const map = useMapEvents({
         click: async (e: LeafletMouseEvent) => {
             
-            let lat: number = e.latlng.lat;
-            let lng: number = e.latlng.lng;
-            await fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1&accept-language=en`)
+            const lat: number = e.latlng.lat;
+            const lng: number = e.latlng.lng;
+            fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1&accept-language=en`)
            .then(data => data.json())
            .then(dataJSON => dataJSON.error
                             ? console.log(dataJSON) 
@@ -38,7 +25,14 @@ function CustomMap() {
             
         }
     });
-    return <Polygon pathOptions={blueOptions} positions={getCoordinates(countryName)} /> ;
+    const coords = getCoordinates(countryName);
+    if(coords === null) {
+        return null;
+    }
+    else {
+        return <Polygon pathOptions={blueOptions} positions={coords} /> ;
+    }
+    
 }
 
 function App() {
