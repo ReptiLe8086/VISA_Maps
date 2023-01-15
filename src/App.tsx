@@ -5,8 +5,11 @@ import './App.css';
 import {geoJSONParser} from './geoJSONParser/geoJSONParser';
 import { Geometry } from './types/Geometry';
 import getCoordinates from './utils/get-coordinates';
+import { getMaxDepth } from './utils/get-max-depth';
 
 const blueOptions = {color: 'blue'};
+
+
 
 function CustomMap() {
 
@@ -38,7 +41,6 @@ function CustomMap() {
 function App() {
     
     
-
 
     
 
