@@ -9,7 +9,7 @@ import { getMaxDepth } from './utils/get-max-depth';
 
 const blueOptions = {color: 'blue'};
 
-const testArray = [[[1, 2]]];
+
 
 function CustomMap() {
 
@@ -24,7 +24,7 @@ function CustomMap() {
            .then(data => data.json())
            .then(dataJSON => dataJSON.error
                             ? console.log(dataJSON) 
-                            : console.log(setCountryName(dataJSON.address.country)));
+                            : setCountryName(dataJSON.address.country));
             
         }
     });
@@ -41,7 +41,6 @@ function CustomMap() {
 function App() {
     
     
-    console.log(getMaxDepth(testArray));
 
     
 
