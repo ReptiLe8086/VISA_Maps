@@ -1,4 +1,4 @@
-import { Dispatch, MouseEventHandler, SetStateAction, useEffect, useState } from "react";
+import React, { Dispatch, MouseEventHandler, SetStateAction, useEffect, useRef, useState } from "react";
 import getCountriesNames from "../../utils/get-countries-names";
 import './CountriesSearchBar.css';
 
@@ -18,13 +18,19 @@ export default function CountriesSearchBar(props: { selected: string; setSelecte
 
     //const [selectedValue, setSelectedValue] = useState('');
     const [showMenu, setShowMenu] = useState(true);
-
+    const [searchValue, setSearchValue] = useState('');
+    const searchRef = useRef<HTMLInputElement>();
+    
+    useEffect(() => {
+        setSearchValue('');
+        if(showMenu && searchRef.current) {
+            searchRef.current.focus();
+        }
+    }, [showMenu]);
 
 
     //const countriesNames = getCountriesNames().map((country) => country.toLowerCase);
     const countries = getCountriesNames();
-
-
 
 
     useEffect(() => {
@@ -55,6 +61,20 @@ export default function CountriesSearchBar(props: { selected: string; setSelecte
         props.setSelected(countryName);
     }
 
+    const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchValue(e.currentTarget.value);
+    };
+
+    const getOptions = () => {
+        if(!searchValue) {
+            return countries;
+        }
+        else {
+            return countries.filter((country) => 
+            country.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0);
+        }
+    };
+
     return (
         <div className='dropdown-container'>
             <div onClick={handleInputClick} className='dropdown-input'>
@@ -67,10 +87,13 @@ export default function CountriesSearchBar(props: { selected: string; setSelecte
             </div>
             {showMenu && (
                 <div className='dropdown-menu'>
-                   {countries.map((country) => (
+                <div className="search-box">
+                    <input type='text' onChange={onSearch} value={searchValue} ref={searchRef} />
+                    </div>  
+                   {getOptions().map((country) => (
                     <div
                     onClick={() => onItemClick(country)} 
-                    id={country}
+                    key={country}
                     className='dropdown-item'>
                         {country}
                     </div>  
