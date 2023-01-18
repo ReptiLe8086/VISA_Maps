@@ -14,8 +14,7 @@
         "@babel/plugin-transform-runtime",
         {
           "regenerator": true
-        },
-        "transform-class-properties"
+        }
       ]
     ]
   }
