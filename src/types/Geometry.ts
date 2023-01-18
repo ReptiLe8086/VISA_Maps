@@ -12,3 +12,4 @@ export interface Coordinates {
     type: string;
     coordinates?: ((([number, number] | null)[] | null)[] | null)[] | null;
 }
+
