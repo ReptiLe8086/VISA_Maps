@@ -1,5 +1,5 @@
 import {Coordinates, Features, Geometry} from '../types/Geometry';
-import data from './countries.json';
+import data from '../data/countries.json';
 
 
 function geoJSONParser(countryName: string): Coordinates | null {
