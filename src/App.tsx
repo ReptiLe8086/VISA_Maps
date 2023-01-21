@@ -3,12 +3,7 @@ import React, {useState, useEffect} from 'react';
 import {MapContainer, TileLayer, Marker, Popup, LayerGroup, Polygon, Pane, useMapEvents} from 'react-leaflet';
 import './App.css';
 import CountriesSearchBar from './components/CountriesSearchBar/CountriesSearchBar';
-import {geoJSONParser} from './geoJSONParser/geoJSONParser';
-import { Geometry } from './types/Geometry';
 import getCoordinates from './utils/get-coordinates';
-import getCountriesNames from './utils/get-countries-names';
-import { getMaxDepth } from './utils/get-max-depth';
-import { getVisaStatus } from './utils/get-visa-status';
 import data from './data/visas.json';
 import { VisaStatus } from './types/VisaStatus';
 
@@ -76,7 +71,6 @@ function paintAllCountries(passport: string) {
                         pathOptions = DAYS_WITHOUT_VISA;
                         break;        
                 }
-                console.log(destinationCountry + ":" + status);
                 if(coords) {
                     polygons.push(
                         <Polygon pathOptions={pathOptions} positions={coords} />
@@ -96,8 +90,7 @@ function paintAllCountries(passport: string) {
 function App() {
     
     const [countryName, setCountryName] = useState('');
-    //console.log(getCountriesNames());
-    //const selectedCountry: string = countryName;
+
 
     return (
         <div className="App">

@@ -9,17 +9,20 @@ export default function getCoordinates(countryName: string): LatLngExpression[][
     const targetGeometry = geoJSONParser(countryName);
     if(targetGeometry !== null && targetGeometry !== undefined) {
         const coordinates = targetGeometry.coordinates;
+        const coordinatesClone = structuredClone(coordinates);
         // TODO: change stuff 
+        
         const coordArray = coordinates as NestedArray<number>;
         const arrayDepth: number = getMaxDepth(coordArray);
         if(arrayDepth === 3){
-            return coordinates?.map((coord1) =>
-                coord1?.map((coord2) => coord2?.reverse())
+            return coordinatesClone?.map((coord1: LatLngExpression[][]) =>
+                coord1?.map((coord2: LatLngExpression[]) => coord2?.reverse())
                 ) as LatLngExpression[][][];
         }
         else if(arrayDepth === 4) {
-            return coordinates?.map((coord1) =>
-                coord1?.map((coord2) => coord2?.map((coord3) => coord3?.reverse()))
+            return coordinatesClone?.map((coord1: LatLngExpression[][][]) =>
+                coord1?.map((coord2: LatLngExpression[][]) =>
+                coord2?.map((coord3: LatLngExpression[]) => coord3?.reverse()))
                 ) as LatLngExpression[][][];
         }
         else {
