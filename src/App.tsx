@@ -7,13 +7,16 @@ import getCoordinates from './utils/get-coordinates';
 import data from './data/visas.json';
 import { VisaStatus } from './types/VisaStatus';
 
+
 const CURRENT_COUNTRY = {color: 'blue'};
-const VISA_FREE_COUNTRY = {color: 'green'};
+const  VISA_FREE_COUNTRY = {color: 'green'};
 const VISA_ON_ARRIVAL_COUNTRY = {color: 'lightgreen'};
 const E_VISA_COUNTRY = {color: 'orange'};
 const VISA_REQUIRED_COUNTRY = {color: 'red'};
 const COVID_BAN_COUNTRY = {color: 'gray'};
 const DAYS_WITHOUT_VISA = {color: 'yellow'};
+
+
 
 
 
