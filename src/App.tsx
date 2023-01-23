@@ -3,21 +3,26 @@ import React, {useState, useEffect} from 'react';
 import {MapContainer, TileLayer, Marker, Popup, LayerGroup, Polygon, Pane, useMapEvents} from 'react-leaflet';
 import './App.css';
 import CountriesSearchBar from './components/CountriesSearchBar/CountriesSearchBar';
-import {geoJSONParser} from './geoJSONParser/geoJSONParser';
-import { Geometry } from './types/Geometry';
 import getCoordinates from './utils/get-coordinates';
-import getCountriesNames from './utils/get-countries-names';
-import { getMaxDepth } from './utils/get-max-depth';
+import data from './data/visas.json';
+import { VisaStatus } from './types/VisaStatus';
 
-const blueOptions = {color: 'blue'};
+
+const CURRENT_COUNTRY = {color: 'blue'};
+const  VISA_FREE_COUNTRY = {color: 'green'};
+const VISA_ON_ARRIVAL_COUNTRY = {color: 'lightgreen'};
+const E_VISA_COUNTRY = {color: 'orange'};
+const VISA_REQUIRED_COUNTRY = {color: 'red'};
+const COVID_BAN_COUNTRY = {color: 'gray'};
+const DAYS_WITHOUT_VISA = {color: 'yellow'};
+
+
+
 
 
 function CustomMap(props: { setSelected: (country: string) => void; selected: string; }) {
-
-    
-
     const map = useMapEvents({
-        click: async (e: LeafletMouseEvent) => {
+        click: (e: LeafletMouseEvent) => {
             
             const lat: number = e.latlng.lat;
             const lng: number = e.latlng.lng;
@@ -34,17 +39,61 @@ function CustomMap(props: { setSelected: (country: string) => void; selected: st
         return null;
     }
     else {
-        return <Polygon pathOptions={blueOptions} positions={coords} /> ;
+        return <Polygon pathOptions={CURRENT_COUNTRY} positions={coords} /> ;
+    }
+}
+
+function paintAllCountries(passport: string) {
+    const polygons = [];
+
+    const visasData = data as VisaStatus[];
+    const currentVisaStatus = visasData.find((visa) => visa.Passport === passport);
+    if (passport !== ''){
+        for (let destinationCountry in currentVisaStatus) {
+            if(destinationCountry !== passport) {
+                const status = currentVisaStatus[destinationCountry];
+                const coords = getCoordinates(destinationCountry);
+                let pathOptions;
+                switch(status) {
+                    case 'covid ban':
+                        pathOptions = COVID_BAN_COUNTRY;
+                        break;
+                    case 'e-visa':
+                        pathOptions = E_VISA_COUNTRY;
+                        break;
+                    case 'visa free':
+                        pathOptions = VISA_FREE_COUNTRY;
+                        break;
+                    case 'visa on arrival':
+                        pathOptions = VISA_ON_ARRIVAL_COUNTRY;
+                        break;
+                    case 'visa required':
+                        pathOptions = VISA_REQUIRED_COUNTRY;
+                        break;
+                    default:
+                        pathOptions = DAYS_WITHOUT_VISA;
+                        break;        
+                }
+                if(coords) {
+                    polygons.push(
+                        <Polygon pathOptions={pathOptions} positions={coords} />
+                    )
+                }
+            }
+        }
     }
     
+
+    return polygons;
 }
+
+
+
 
 function App() {
     
     const [countryName, setCountryName] = useState('');
 
-    //console.log(getCountriesNames());
-    //const selectedCountry: string = countryName;
 
     return (
         <div className="App">
@@ -53,7 +102,7 @@ function App() {
                 
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <CustomMap selected={countryName} setSelected={setCountryName}/>
-                
+                {paintAllCountries(countryName)}
             </MapContainer>
             
         </div>
