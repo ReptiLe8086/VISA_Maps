@@ -1,5 +1,5 @@
 import { LatLngExpression } from "leaflet";
-import { geoJSONParser } from "../geoJSONParser/geoJSONParser";
+import { geoJSONParser } from "../GeoJSONParser/geoJSONParser";
 import { NestedArray } from "../types/NestedArray";
 import { getMaxDepth } from "./get-max-depth";
 
