@@ -1,3 +1,56 @@
 .map {
   height: 700px
 }
+
+.legend {
+  background-color: white;
+  height: 30px;
+  display: flex;
+  position: absolute;
+  align-items: center;
+  justify-content: space-around;
+  font-family: Verdana, sans-serif;
+  margin-left: auto;
+  margin-right: auto;
+  padding-right: 1%;
+  padding-left: 1%;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  z-index: 1500;
+  top: 700px;
+  
+}
+
+.legend-rectangle{
+  height: 18px;
+  width: 18px;
+  shape-outside: inset(1px);
+}
+
+.legend-rectangle.current{
+  background-color: blue;
+}
+
+.legend-rectangle.visa-free{
+  background-color: green;
+}
+
+.legend-rectangle.visa-on-arrival{
+  background-color: lightgreen;
+}
+
+.legend-rectangle.e-visa{
+  background-color: orange;
+}
+
+.legend-rectangle.visa-required{
+  background-color: red;
+}
+
+.legend-rectangle.covid-ban{
+  background-color: gray;
+}
+
+.legend-rectangle.days{
+  background-color: yellow;
+}
