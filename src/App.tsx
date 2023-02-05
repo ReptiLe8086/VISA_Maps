@@ -37,6 +37,7 @@ function CustomMap(props: {setSelected: (country: string) => void; selected: str
         },
         click: (e: LeafletMouseEvent) => {
             
+            console.log(e);
             const lat: number = e.latlng.lat;
             const lng: number = e.latlng.lng;
             props.setMarkerPos(e.latlng);
@@ -51,6 +52,7 @@ function CustomMap(props: {setSelected: (country: string) => void; selected: str
         }
     });
     map.doubleClickZoom.disable();
+
     if(props.markerPos === null) {
         console.log('marker fault')
         return null;
@@ -60,12 +62,10 @@ function CustomMap(props: {setSelected: (country: string) => void; selected: str
         return null;
     }
     const status = getCountryStatus(props.selected, props.destination);
-    return <Marker position={props.markerPos}>
-               <Popup>
+    return   <Popup position={props.markerPos}>
                 Destination: {props.destination} <br />
                 Status: {status}
-                </Popup> 
-    </Marker>;
+            </Popup>;
 }
 
 function paintAllCountries(passport: string) {
