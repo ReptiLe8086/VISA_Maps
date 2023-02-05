@@ -62,10 +62,14 @@ function CustomMap(props: {setSelected: (country: string) => void; selected: str
         return null;
     }
     const status = getCountryStatus(props.selected, props.destination);
+    if (status === '-1' || status === null) {
+        return null;
+    }
     return   <Popup position={props.markerPos}>
-                Destination: {props.destination} <br />
-                Status: {status}
-            </Popup>;
+                    Destination: {props.destination} <br />
+                    Status: {status}
+             </Popup>;
+    
 }
 
 function paintAllCountries(passport: string) {
