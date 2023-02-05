@@ -125,21 +125,23 @@ function App() {
     return (
         <div className="App">
             <CountriesSearchBar selected={countryName} setSelected={setCountryName} />
-            <div className='legend'>
-                <div className='legend-rectangle current'/>
-                <p>&ensp;- current country&ensp; </p>
-                <div className='legend-rectangle visa-free'/>
-                <p>&ensp;- visa free countries&ensp; </p>
-                <div className='legend-rectangle visa-on-arrival'/>
-                <p>&ensp;- visa on arrival&ensp; </p>
-                <div className='legend-rectangle e-visa'/>
-                <p>&ensp;- e-visa&ensp; </p>
-                <div className='legend-rectangle visa-required'/>
-                <p>&ensp;- visa-required&ensp; </p>
-                <div className='legend-rectangle covid-ban'/>
-                <p>&ensp;- covid ban&ensp; </p>
-                <div className='legend-rectangle days'/>
-                <p>&ensp;- days without visa </p>
+            <div style={{display: 'flex', justifyContent: 'center'}}>
+                <div className='legend'>
+                    <div className='legend-rectangle current'/>
+                    <p>&ensp;- current country&ensp; </p>
+                    <div className='legend-rectangle visa-free'/>
+                    <p>&ensp;- visa free countries&ensp; </p>
+                    <div className='legend-rectangle visa-on-arrival'/>
+                    <p>&ensp;- visa on arrival&ensp; </p>
+                    <div className='legend-rectangle e-visa'/>
+                    <p>&ensp;- e-visa&ensp; </p>
+                    <div className='legend-rectangle visa-required'/>
+                    <p>&ensp;- visa-required&ensp; </p>
+                    <div className='legend-rectangle covid-ban'/>
+                    <p>&ensp;- covid ban&ensp; </p>
+                    <div className='legend-rectangle days'/>
+                    <p>&ensp;- days without visa </p>
+                </div>
             </div>
             <MapContainer className="map" center={[51.505, -0.09]} zoom={2} scrollWheelZoom={true} minZoom={2}>
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />

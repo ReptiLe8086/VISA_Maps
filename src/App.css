@@ -16,7 +16,8 @@
   padding-left: 1%;
   border: 1px solid #ccc;
   border-radius: 5px;
-  z-index: 1000;
+  z-index: 1500;
+  top: 700px;
   
 }
 

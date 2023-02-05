@@ -3,9 +3,9 @@
     border: 1px solid #ccc;
     position: relative;
     border-radius: 5px;
-    margin-left: 50%;
+    margin-right: 50%;
     font-family: Verdana, sans-serif;
-    z-index: 1000;
+    z-index: 2000;
   }
   
   .dropdown-input {
