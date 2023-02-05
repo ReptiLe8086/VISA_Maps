@@ -126,20 +126,20 @@ function App() {
         <div className="App">
             <CountriesSearchBar selected={countryName} setSelected={setCountryName} />
             <div className='legend'>
-                <div className='legend-current'/>
-                <p>- current country</p>
-                <div className='legend-visa-free'/>
-                <p>- visa free countries</p>
-                <div className='legend-visa-on-arrival'/>
-                <p>- visa on arrival</p>
-                <div className='legend-e-visa'/>
-                <p>- e-visa</p>
-                <div className='legend-visa-required'/>
-                <p>- visa-required</p>
-                <div className='legend-covid-ban'/>
-                <p>- covid ban</p>
-                <div className='legend-days'/>
-                <p>- days without visa</p>
+                <div className='legend-rectangle current'/>
+                <p>&ensp;- current country&ensp; </p>
+                <div className='legend-rectangle visa-free'/>
+                <p>&ensp;- visa free countries&ensp; </p>
+                <div className='legend-rectangle visa-on-arrival'/>
+                <p>&ensp;- visa on arrival&ensp; </p>
+                <div className='legend-rectangle e-visa'/>
+                <p>&ensp;- e-visa&ensp; </p>
+                <div className='legend-rectangle visa-required'/>
+                <p>&ensp;- visa-required&ensp; </p>
+                <div className='legend-rectangle covid-ban'/>
+                <p>&ensp;- covid ban&ensp; </p>
+                <div className='legend-rectangle days'/>
+                <p>&ensp;- days without visa </p>
             </div>
             <MapContainer className="map" center={[51.505, -0.09]} zoom={2} scrollWheelZoom={true} minZoom={2}>
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
