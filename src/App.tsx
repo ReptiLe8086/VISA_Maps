@@ -28,7 +28,7 @@ function CustomMap(props: {setSelected: (country: string) => void; selected: str
             const lat: number = e.latlng.lat;
             const lng: number = e.latlng.lng;
             fetch(
-                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1&accept-language=en`
+                https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1&accept-language=en
             )
                 .then((data) => data.json())
                 .then((dataJSON) =>
@@ -42,7 +42,7 @@ function CustomMap(props: {setSelected: (country: string) => void; selected: str
             const lng: number = e.latlng.lng;
             props.setMarkerPos(e.latlng);
             fetch(
-                `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1&accept-language=en`
+                https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}&zoom=18&addressdetails=1&accept-language=en
             )
                 .then((data) => data.json())
                 .then((dataJSON) =>
@@ -83,8 +83,7 @@ function paintAllCountries(passport: string) {
             // if (destinationCountry === passport) {
             //     continue;
             // }
-
-            const status = currentVisaStatus[destinationCountry];
+const status = currentVisaStatus[destinationCountry];
             const coords = getCoordinates(destinationCountry);
             let pathOptions;
             switch (status) {
