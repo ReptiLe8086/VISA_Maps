@@ -1,7 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
 import getCountriesNames from '../../utils/get-countries-names';
 import { getCountryStatus } from '../../utils/get-country-status';
-import './CountriesSearchBar.css';
+import './CountriesStatus.css';
 
 const Icon = () => {
     return (
@@ -11,8 +11,8 @@ const Icon = () => {
     );
 };
 
-export default function CountriesSearchBar(props: {selected: string; setSelected: (country: string) => void}) {
-    const [showMenu, setShowMenu] = useState(true);
+export default function CountriesStatus(props: {selected: string; destination: string; setDestination: (country: string) => void}) {
+    const [showMenu, setShowMenu] = useState(false);
     const [searchValue, setSearchValue] = useState('');
     const searchRef = useRef<HTMLInputElement>();
 
@@ -23,6 +23,12 @@ export default function CountriesSearchBar(props: {selected: string; setSelected
     }, [showMenu]);
 
     const countries = getCountriesNames();
+    const destCountries: string[] = [];
+    for(let country of countries) {
+        if(country !== props.selected){
+            destCountries.push(country + ':' + getCountryStatus(props.selected, country));
+        }
+    }
 
     useEffect(() => {
         const handler = () => setShowMenu(false);
@@ -39,14 +45,14 @@ export default function CountriesSearchBar(props: {selected: string; setSelected
     };
 
     const getDisplay = () => {
-        if (props.selected !== '') {
-            return props.selected;
+        if (props.destination !== '') {
+            return props.destination;
         }
-        return 'Select country';
+        return 'Find destination status';
     };
 
     const onItemClick = (countryName: string) => {
-        props.setSelected(countryName);
+        props.setDestination(countryName);
     };
 
     const onSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -55,28 +61,28 @@ export default function CountriesSearchBar(props: {selected: string; setSelected
 
     const getOptions = () => {
         if (!searchValue) {
-            return countries;
+            return destCountries;
         }
-        return countries.filter((country) => country.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0);
+        return destCountries.filter((country) => country.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0);
     };
 
     return (
-        <div className="dropdown-container">
-            <div onClick={handleInputClick} className="dropdown-input">
-                <div className="dropdown-selected-value">{getDisplay()}</div>
-                <div className="dropdown-tools">
-                    <div className="dropdown-tool">
+        <div className="container">
+            <div onClick={handleInputClick} className="input">
+                <div className="selected-value">{getDisplay()}</div>
+                <div className="tools">
+                    <div className="tool">
                         <Icon />
                     </div>
                 </div>
             </div>
             {showMenu ? (
-                <div className="dropdown-menu">
-                    <div className="search-box">
+                <div className="menu">
+                    <div className="box">
                         <input type="text" onChange={onSearch} value={searchValue} ref={searchRef} />
                     </div>
                     {getOptions().map((country) => (
-                        <div onClick={() => onItemClick(country)} key={country} className="dropdown-item">
+                        <div onClick={() => onItemClick(country)} key={country} className="item">
                             {country}
                         </div>
                     ))}
