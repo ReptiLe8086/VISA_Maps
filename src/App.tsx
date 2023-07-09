@@ -7,6 +7,7 @@ import getCoordinates from './utils/get-coordinates';
 import data from './data/visas.json';
 import {VisaStatus} from './types/VisaStatus';
 import {getCountryStatus} from './utils/get-country-status';
+import CountriesStatus from './components/CountriesStatus/CountriesStatus';
 
 enum CountryColors {
     CURRENT = 'blue',
@@ -146,6 +147,7 @@ function App() {
                     <p>&ensp;- days without visa </p>
                 </div>
             </div>
+            <CountriesStatus selected={countryName} destination={destinationCountry} setDestination={setDestinationCountry} />
             <MapContainer className="map" center={[51.505, -0.09]} zoom={2} scrollWheelZoom={true} minZoom={2}>
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <CustomMap 
